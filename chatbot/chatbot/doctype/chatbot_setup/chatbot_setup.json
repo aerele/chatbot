@@ -1,0 +1,88 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-09-21 14:44:19.266520",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "telegram_tab",
+  "telegram_title",
+  "telegram_username",
+  "telegram_api_token",
+  "telegram_webhook_url",
+  "whatsapp_tab",
+  "whatsapp_title",
+  "slack_tab",
+  "slack_title"
+ ],
+ "fields": [
+  {
+   "fieldname": "telegram_tab",
+   "fieldtype": "Tab Break",
+   "label": "Telegram"
+  },
+  {
+   "fieldname": "whatsapp_tab",
+   "fieldtype": "Tab Break",
+   "label": "Whatsapp"
+  },
+  {
+   "fieldname": "slack_tab",
+   "fieldtype": "Tab Break",
+   "label": "Slack"
+  },
+  {
+   "fieldname": "telegram_title",
+   "fieldtype": "Data",
+   "label": "Title"
+  },
+  {
+   "fieldname": "telegram_username",
+   "fieldtype": "Data",
+   "label": "Bot Username"
+  },
+  {
+   "fieldname": "telegram_api_token",
+   "fieldtype": "Password",
+   "label": "API Token"
+  },
+  {
+   "fieldname": "telegram_webhook_url",
+   "fieldtype": "Data",
+   "label": "Webhook URL"
+  },
+  {
+   "fieldname": "whatsapp_title",
+   "fieldtype": "Data",
+   "label": "Title"
+  },
+  {
+   "fieldname": "slack_title",
+   "fieldtype": "Data",
+   "label": "Title"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-09-21 14:49:41.679407",
+ "modified_by": "Administrator",
+ "module": "Chatbot",
+ "name": "Chatbot Setup",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
