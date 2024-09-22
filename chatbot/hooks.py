@@ -91,6 +91,8 @@ app_license = "mit"
 # before_uninstall = "chatbot.uninstall.before_uninstall"
 # after_uninstall = "chatbot.uninstall.after_uninstall"
 
+after_migrate = "chatbot.customization.after_migrate.after_migrate"
+
 # Integration Setup
 # ------------------
 # To set up dependencies/integrations with other apps
