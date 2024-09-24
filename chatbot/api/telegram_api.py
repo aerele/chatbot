@@ -12,15 +12,17 @@ class TelegramAPI:
         self.reply_text = str()
         self.reply_markup = {}
         self.data = str()
+        self.chat_id=str()
 
         if "callback_query" in update:
             self.message = update.get('callback_query').get('message')
             self.data = update.get('callback_query').get('data')
+            self.chat_id = self.data.get("message").get("chat").get("id")
         elif "message" in update:
             self.message = update.get('message')
 
         if self.message:
-            self.chat_id = self.message["chat"]["id"]
+            self.chat_id = self.message.get("chat").get("id")
             self.user_name = "@"+self.message["chat"]["username"]
         else:
             frappe.throw(msg="Message object not found")
@@ -100,6 +102,7 @@ class TelegramAPI:
             party_type, party_name = validate_user(self.user_name, "Telegram")
 
             if party_type and party_name:
+                self.set_chat_id(party_type,party_name)
                 self.handle_message(party_type, party_name)
             else:
                 self.reply_text = "User not registered"
@@ -131,3 +134,7 @@ class TelegramAPI:
             self.reply_text = chatbot_template.get_rendered_template(**kwargs)
 
             self.send_message(self.reply_text)
+    def set_chat_id(self,party_type,party_name):
+        chat_id =frappe.db.get_value(party_type,party_name,"telegram_user_id")
+        if not chat_id or chat_id!=self.chat_id:
+            frappe.db.set_value(party_type,party_name,"telegram_user_id",self.chat_id)
