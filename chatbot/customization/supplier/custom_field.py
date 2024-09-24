@@ -12,7 +12,14 @@ def create_supplier_custom_field():
 				label="Telegram Username",
 				fieldtype="Data",
 				insert_after="country",
-			)
+			),
+			dict(
+				fieldname="telegram_user_id",
+				read_only=1,
+				label="",
+				fieldtype="Data",
+				insert_after="custom_telegram_username",
+			),
 		]
 	}
 	create_custom_fields(custom_fields, update=True)
