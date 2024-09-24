@@ -1,30 +1,26 @@
 import frappe
 
 def validate_user(user_name:str, service_name:str):
-    try:
-        party_list = frappe.db.get_all("Chatbot Party Type", pluck="name")
+    party_list = frappe.db.get_all("Chatbot Party Type", pluck="name")
 
-        if service_name == "Telegram":
-            for party in party_list:
-                party_name = frappe.db.get_value(party, {"custom_telegram_username":user_name})
-                if party_name:
-                    return party, party_name
+    if service_name == "Telegram":
+        for party in party_list:
+            party_name = frappe.db.get_value(party, {"custom_telegram_username":user_name})
+            if party_name:
+                return party, party_name
 
-        return None, None
-
-    except Exception as e:
-        frappe.throw("Validate User Error", e)
+    return None, None
 
 
 def get_root_chatbot_flow():
-    root_doc = frappe.db.get_all('Chatbot Flow',
-                              filters={'parent_chatbot_flow': '', 'button_text' : ''},
-                              fields=['template', 'name'])
+    root_doc = frappe.db.get_value('Chatbot Flow',
+                              {'parent_chatbot_flow': ["is", "null"], 'button_text' : ["is", "null"]},
+                              ['template', 'name'], as_dict=1)
 
     if root_doc:
-        return root_doc[0]  # Return the first root document found
+        return root_doc
     else:
-        frappe.throw("No root document found for Chatbot Flow.")
+        frappe.throw("No root document found for Chatbot Flow.", exc=frappe.DoesNotExistError)
 
 
 def get_associated_party_types(docname:str):

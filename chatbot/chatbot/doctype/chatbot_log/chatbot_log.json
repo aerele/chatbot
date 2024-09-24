@@ -1,0 +1,128 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-09-23 17:03:12.906888",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "column_break_tqmg",
+  "bot_service",
+  "request_log_section",
+  "method",
+  "voucher_type",
+  "voucher_name",
+  "column_break_pdgw",
+  "url",
+  "request",
+  "response_log_section",
+  "status",
+  "column_break_dtcu",
+  "response"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_tqmg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bot_service",
+   "fieldtype": "Select",
+   "label": "Bot Service",
+   "options": "\nTelegram\nWhatsapp\nSlack",
+   "read_only": 1
+  },
+  {
+   "fieldname": "request_log_section",
+   "fieldtype": "Section Break",
+   "label": "Request Log"
+  },
+  {
+   "fieldname": "method",
+   "fieldtype": "Select",
+   "label": "Method",
+   "options": "\nGET\nPOST\nDELETE",
+   "read_only": 1
+  },
+  {
+   "fieldname": "voucher_type",
+   "fieldtype": "Data",
+   "label": "Voucher Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "voucher_name",
+   "fieldtype": "Data",
+   "label": "Voucher Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_pdgw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "url",
+   "fieldtype": "Data",
+   "label": "URL",
+   "read_only": 1
+  },
+  {
+   "fieldname": "request",
+   "fieldtype": "Long Text",
+   "label": "Request",
+   "read_only": 1
+  },
+  {
+   "fieldname": "response_log_section",
+   "fieldtype": "Section Break",
+   "label": "Response Log"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nSuccess\nFailed\nQueued",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_dtcu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "response",
+   "fieldtype": "Long Text",
+   "label": "Response",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-09-23 17:12:30.786283",
+ "modified_by": "Administrator",
+ "module": "Chatbot",
+ "name": "Chatbot Log",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

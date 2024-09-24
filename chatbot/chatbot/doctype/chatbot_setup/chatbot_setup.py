@@ -17,7 +17,6 @@ class ChatbotSetup(Document):
 
     def validate_api_token(self):
         """Validate the Telegram API token using Telegram's getMe API."""
-        print("has value changed", self.has_value_changed("telegram_api_token"), self.is_new())
         if not self.has_value_changed("telegram_api_token"):
             return  # Skip validation if token hasn't changed
 
@@ -32,7 +31,6 @@ class ChatbotSetup(Document):
 
             data = response.json()
 
-            print("Data", data)
             # Ensure that the API response contains valid bot information
             if data.get("result", {}).get("is_bot"):
                 self.telegram_username = "@" + data["result"]["username"]
