@@ -13,13 +13,13 @@ def telegram_webhook():
         try:
             api.process_update()
         except Exception as e:
-            frappe.log_error(f"Error processing update: {str(e)}", "Telegram API Error")
+            frappe.log_error(title="Error In Telegram Webhook",message=frappe.get_traceback(with_context=1))
             api.send_message(text="Something went wrong, Kindly contact your admin")
 
         return {"status": "success"}, 200
 
     except Exception as e:
         # Log the error and return an error response
-        frappe.log_error(f"Error processing webhook: {str(e)}", "Telegram Webhook Error")
+        frappe.log_error(title="Error processing webhook" ,message=frappe.get_traceback(with_context=1))
 
         return {"status": "error", "message": "Failed to process update"}, 500
