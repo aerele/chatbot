@@ -44,13 +44,24 @@ class ChatbotSetup(Document):
         """Set the Telegram webhook URL using Telegram's setWebhook API."""
         if self.has_value_changed("telegram_webhook_url"):
             api_token = self.get_password("telegram_api_token")
-
+            self.del_webhook()
             webhook_url = f"{self.telegram_webhook_url}/api/method/chatbot.webhook.telegram_webhook"
             url = f"https://api.telegram.org/bot{api_token}/setWebhook?url={webhook_url}"
 
             try:
+                
                 response = requests.get(url)
                 response.raise_for_status()  # Raises an HTTPError for 4xx/5xx status codes
 
             except requests.exceptions.RequestException as e:
                 frappe.throw(f"Failed to set Telegram webhook: {e}")
+    def del_webhook(self):
+        api_token = self.get_password("telegram_api_token")
+        url=f"https://api.telegram.org/bot{api_token}/deleteWebhook?drop_pending_updates=1"
+        try:
+                
+                response = requests.get(url)
+                response.raise_for_status()  # Raises an HTTPError for 4xx/5xx status codes
+
+        except requests.exceptions.RequestException as e:
+            frappe.throw(f"Failed to set Telegram webhook: {e}")
