@@ -3,17 +3,41 @@ import requests
 import json
 from chatbot.chatbot.doctype.chatbot_log.chatbot_log import log_chatbot
 from chatbot.utils import validate_user, get_root_chatbot_flow, get_associated_party_types, fetch_all_children
-
+import hashlib
+from passlib.context import CryptContext
+passlibctx = CryptContext(schemes=["pbkdf2_sha256","argon2",], )
 class TelegramAPI:
-	def __init__(self, update):
+	def __init__(self, update,headers):
 		self.update = update
+		self.headers=headers
+		self.validate_token=False
+		secret_token_ft=self.headers.get("X-Telegram-Bot-Api-Secret-Token")
+		host=self.headers.get("X-Forwarded-Host")
+		proto=self.headers.get("X-Forwarded-Proto")
+		if proto !="https":
+			frappe.throw("Not an https Request", frappe.PermissionError)
+		if host !=frappe.db.get_value("Chatbot Setup","Chatbot Setup","telegram_webhook_url").strip()[8:]:
+			frappe.throw("Not an Host", frappe.PermissionError)
+		if secret_token_ft:
+			secret_token = frappe.get_doc("Chatbot Setup").get_password("secret_token")
+			if secret_token:
+				random_value=hashlib.sha256(secret_token_ft.encode())
+				random_value=random_value.hexdigest()
+				if passlibctx.verify(random_value,secret_token):
+					self.validate_token =True
+				else:
+					frappe.throw("Verify Error", frappe.PermissionError)
+			else:
+				frappe.throw("StFxx0n0ecre Tnmx0naoke Error", frappe.PermissionError)
+		else:
+			frappe.throw("StFxx0n0ecre Tnmx0naoke Error FT", frappe.PermissionError)
 		self.token = frappe.get_doc("Chatbot Setup").get_password('telegram_api_token')
 		self.base_url = f"https://api.telegram.org/bot{self.token}/"
 		self.reply_text = str()
 		self.reply_markup = {}
 		self.data = str()
 		self.chat_id=str()
-		print("update",update)
+		
 		if "callback_query" in update:
 			self.callback_query =update.get('callback_query')
 			self.message = self.callback_query.get('message')

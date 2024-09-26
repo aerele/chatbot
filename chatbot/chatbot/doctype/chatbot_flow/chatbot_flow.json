@@ -79,13 +79,15 @@
    "fieldname": "associated_party_types",
    "fieldtype": "Table MultiSelect",
    "label": "Associated Party Types",
-   "options": "Chatbot Associated Party Types"
+   "options": "Chatbot Associated Party Types",
+   "reqd": 1
   },
   {
    "fieldname": "template",
    "fieldtype": "Link",
    "label": "Template",
-   "options": "Chatbot Message Template"
+   "options": "Chatbot Message Template",
+   "reqd": 1
   },
   {
    "fieldname": "type",
@@ -98,7 +100,7 @@
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2024-09-24 13:21:53.228666",
+ "modified": "2024-09-26 13:37:39.673202",
  "modified_by": "Administrator",
  "module": "Chatbot",
  "name": "Chatbot Flow",

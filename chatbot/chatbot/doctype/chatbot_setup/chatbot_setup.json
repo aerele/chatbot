@@ -1,6 +1,5 @@
 {
  "actions": [],
- "allow_rename": 1,
  "creation": "2024-09-21 14:44:19.266520",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -11,6 +10,7 @@
   "telegram_username",
   "telegram_api_token",
   "telegram_webhook_url",
+  "secret_token",
   "whatsapp_tab",
   "enable_whatsapp",
   "whatsapp_title",
@@ -42,7 +42,8 @@
   {
    "fieldname": "telegram_username",
    "fieldtype": "Data",
-   "label": "Bot Username"
+   "label": "Bot Username",
+   "read_only": 1
   },
   {
    "fieldname": "telegram_api_token",
@@ -82,12 +83,19 @@
    "fieldname": "enable_slack",
    "fieldtype": "Check",
    "label": "Enable"
+  },
+  {
+   "fieldname": "secret_token",
+   "fieldtype": "Password",
+   "hidden": 1,
+   "no_copy": 1,
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-09-26 11:46:39.605839",
+ "modified": "2024-09-26 16:10:19.515181",
  "modified_by": "Administrator",
  "module": "Chatbot",
  "name": "Chatbot Setup",
