@@ -10,6 +10,7 @@
   "telegram_username",
   "telegram_api_token",
   "telegram_webhook_url",
+  "secret_token",
   "whatsapp_tab",
   "enable_whatsapp",
   "whatsapp_title",
@@ -82,12 +83,19 @@
    "fieldname": "enable_slack",
    "fieldtype": "Check",
    "label": "Enable"
+  },
+  {
+   "fieldname": "secret_token",
+   "fieldtype": "Password",
+   "hidden": 1,
+   "no_copy": 1,
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-09-26 13:35:42.977210",
+ "modified": "2024-09-26 16:10:19.515181",
  "modified_by": "Administrator",
  "module": "Chatbot",
  "name": "Chatbot Setup",
