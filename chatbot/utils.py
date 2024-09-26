@@ -5,7 +5,7 @@ def validate_user(user_name:str, service_name:str):
 
     if service_name == "Telegram":
         for party in party_list:
-            party_name = frappe.db.get_value(party, {"custom_telegram_username":user_name})
+            party_name = frappe.db.get_value(party, {"telegram_username":user_name})
             if party_name:
                 return party, party_name
 

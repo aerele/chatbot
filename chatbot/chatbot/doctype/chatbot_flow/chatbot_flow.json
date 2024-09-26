@@ -8,6 +8,7 @@
  "field_order": [
   "section_break_nlcp",
   "name1",
+  "type",
   "button_text",
   "associated_party_types",
   "template",
@@ -66,9 +67,11 @@
    "unique": 1
   },
   {
+   "depends_on": "eval:doc.type==\"Button\"",
    "fieldname": "button_text",
    "fieldtype": "Data",
    "label": "Button Text",
+   "mandatory_depends_on": "eval:doc.type==\"Button\"",
    "unique": 1
   },
   {
@@ -82,12 +85,19 @@
    "fieldtype": "Link",
    "label": "Template",
    "options": "Chatbot Message Template"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "\nButton\nText\nGet Value\nImage\nVideo\nDocument\nLocation",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2024-09-22 11:27:13.811749",
+ "modified": "2024-09-25 12:55:43.551793",
  "modified_by": "Administrator",
  "module": "Chatbot",
  "name": "Chatbot Flow",
