@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "prompt",
  "creation": "2024-09-21 14:32:31.588744",
@@ -10,6 +11,7 @@
   "enable_dynamic_response",
   "response_type",
   "template",
+  "default_doctype",
   "print_format",
   "default_document",
   "report",
@@ -52,9 +54,9 @@
   },
   {
    "fieldname": "default_document",
-   "fieldtype": "Link",
+   "fieldtype": "Dynamic Link",
    "label": "Default Document",
-   "options": "Print Format"
+   "options": "default_doctype"
   },
   {
    "fieldname": "report",
@@ -90,11 +92,17 @@
    "fieldname": "html_yzlg",
    "fieldtype": "HTML",
    "options": "<h3>Help</h3>\n<h4><b>Custom Function</b></h4>\n<p>It contains the keyword arguments respective to the associated party names</p>\n<p>{Party Type} = {Party Name}</p>\n<p><b>Example:</b> customer = \"customer_name\"</p><p></p>\n<p>So, make sure your custom function has <b>**kwargs</b> as a param to get values</p>\n<br>\n<h4><b>Server Script</b></h4>\n<pre><code>\nres = {}\n\n#get the default arguments passed using form_dict.party_name\nif frappe.form_dict.customer: \n    customer = frappe.form_dict.customer\n    company = frappe.db.get_default('company')\n    res[\"customer_name\"] = customer\n    res[\"company\"] = company\n    res[\"phone\"] = \"9876543218\"\n    res[\"email\"] = \"kavin@aerele.in\"\n    res[\"website_url\"] = \"www.aerele.in\"\n    \n    #response should be passed in flags.response key : value dict\n    frappe.flags.response = res \n</code>\n</pre>"
+  },
+  {
+   "fieldname": "default_doctype",
+   "fieldtype": "Link",
+   "label": "Default Doctype",
+   "options": "DocType"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-09-22 19:52:04.827393",
+ "modified": "2024-09-24 15:44:25.304492",
  "modified_by": "Administrator",
  "module": "Chatbot",
  "name": "Chatbot Message Template",

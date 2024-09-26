@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:name1",
  "creation": "2024-09-22 11:22:36.891954",
@@ -97,7 +98,7 @@
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2024-09-25 12:55:43.551793",
+ "modified": "2024-09-24 13:21:53.228666",
  "modified_by": "Administrator",
  "module": "Chatbot",
  "name": "Chatbot Flow",
