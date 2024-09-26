@@ -1,6 +1,5 @@
 {
  "actions": [],
- "allow_rename": 1,
  "creation": "2024-09-21 14:44:19.266520",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -42,7 +41,8 @@
   {
    "fieldname": "telegram_username",
    "fieldtype": "Data",
-   "label": "Bot Username"
+   "label": "Bot Username",
+   "read_only": 1
   },
   {
    "fieldname": "telegram_api_token",
@@ -87,7 +87,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-09-26 11:46:39.605839",
+ "modified": "2024-09-26 13:35:42.977210",
  "modified_by": "Administrator",
  "module": "Chatbot",
  "name": "Chatbot Setup",
