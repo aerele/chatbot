@@ -12,9 +12,10 @@ def validate_user(user_name:str, service_name:str):
     return None, None
 
 
-def get_root_chatbot_flow():
+def get_root_chatbot_flow(party_type):
+    party_tree=frappe.db.get_all("Chatbot Associated Party Types",{"parent":["is","set"],"parenttype":"Chatbot Flow","party_name": party_type},["parent"],pluck="parent")
     root_doc = frappe.db.get_value('Chatbot Flow',
-                              {'parent_chatbot_flow': ["is", "null"], 'button_text' : ["is", "null"]},
+                              {'parent_chatbot_flow': ["is", "null"], 'button_text' : ["is", "null"],"name":["in",party_tree]},
                               ['template', 'name'], as_dict=1)
 
     if root_doc:
