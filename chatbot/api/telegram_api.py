@@ -3,17 +3,43 @@ import requests
 import json
 from chatbot.chatbot.doctype.chatbot_log.chatbot_log import log_chatbot
 from chatbot.utils import validate_user, get_root_chatbot_flow, get_associated_party_types, fetch_all_children
-
+import hashlib
+from passlib.context import CryptContext
+passlibctx = CryptContext(schemes=["pbkdf2_sha256","argon2",], )
 class TelegramAPI:
-	def __init__(self, update):
+	def __init__(self, update,headers):
+		print(update)
 		self.update = update
+		self.headers=headers
+		self.validate_token=False
+		secret_token_ft=self.headers.get("X-Telegram-Bot-Api-Secret-Token")
+		host=self.headers.get("X-Forwarded-Host")
+		proto=self.headers.get("X-Forwarded-Proto")
+		if proto !="https":
+			frappe.throw("Not an https Request", frappe.PermissionError)
+		if host !=frappe.db.get_value("Chatbot Setup","Chatbot Setup","telegram_webhook_url").strip()[8:]:
+			frappe.throw("Not an Host", frappe.PermissionError)
+		if secret_token_ft:
+			secret_token = frappe.get_doc("Chatbot Setup").get_password("secret_token")
+			if secret_token:
+				random_value=hashlib.sha256(secret_token_ft.encode())
+				random_value=random_value.hexdigest()
+				if passlibctx.verify(random_value,secret_token):
+					self.validate_token =True
+				else:
+					frappe.throw("Verify Error", frappe.PermissionError)
+			else:
+				frappe.throw("StFxx0n0ecre Tnmx0naoke Error", frappe.PermissionError)
+		else:
+			frappe.throw("StFxx0n0ecre Tnmx0naoke Error FT", frappe.PermissionError)
 		self.token = frappe.get_doc("Chatbot Setup").get_password('telegram_api_token')
 		self.base_url = f"https://api.telegram.org/bot{self.token}/"
 		self.reply_text = str()
 		self.reply_markup = {}
 		self.data = str()
 		self.chat_id=str()
-		print("update",update)
+		self.message_received=str()
+		
 		if "callback_query" in update:
 			self.callback_query =update.get('callback_query')
 			self.message = self.callback_query.get('message')
@@ -26,20 +52,20 @@ class TelegramAPI:
 		if self.message:
 			self.chat_id = self.message.get("chat").get("id")
 			self.user_name = "@"+self.message["chat"]["username"]
+			self.message_received=self.message.get("text")
 		else:
 			frappe.throw(msg="Message object not found")
 
 
-	def send_message(self, text:str):
+	def send_message(self, text:str =None):
 		"""Send a message to a Telegram chat, with optional inline buttons."""
 		url = f"{self.base_url}sendMessage"
 		payload = {
 			"chat_id": self.chat_id,
-			"text": text,
-			"ForceReply"
+			"text": self.reply_text,
 			"reply_markup": self.reply_markup  # Inline keyboard markup
 		}
-		print("self.reply_markup",self.reply_markup)
+		print("payload",payload)
 		response = requests.post(url, json=payload)
 
 		log_chatbot(
@@ -116,8 +142,14 @@ class TelegramAPI:
 	def handle_message(self, party_type, party_name):
 		"""Handle incoming messages."""
 		# Determine chatbot flow and template
+		print("self.data",self.data)
+		self.data=self.data if frappe.db.exists("Chatbot Flow",self.data) else None
 		pre_chatbot_flow_name=frappe.cache.get_value(self.chat_id)
+		pre_chatbot_flow_name=pre_chatbot_flow_name if frappe.db.exists("Chatbot Flow",pre_chatbot_flow_name) else None
+		print("pre_chatbot_flow_name",pre_chatbot_flow_name)
+		parent_flow=get_root_chatbot_flow(party_type)
 		if self.data:
+			
 			chatbot_flow = frappe.get_doc('Chatbot Flow', self.data) 
 		elif pre_chatbot_flow_name:
 			chatbot_flow = frappe.get_doc('Chatbot Flow', pre_chatbot_flow_name)
@@ -125,11 +157,11 @@ class TelegramAPI:
 			if children:
 				chatbot_flow = frappe.get_doc('Chatbot Flow', children[0].get("name"))
 			else:
-				chatbot_flow= get_root_chatbot_flow()
+				chatbot_flow= parent_flow
 			
 			   
 		else:
-			chatbot_flow= get_root_chatbot_flow()
+			chatbot_flow=parent_flow
 		
 		associated_parties = get_associated_party_types(chatbot_flow.get('name'))
 		children = fetch_all_children(chatbot_flow.get('name'))
@@ -137,19 +169,25 @@ class TelegramAPI:
 
 		# Build reply markup (inline keyboard)
 		self.reply_markup = {"inline_keyboard": [], 'resize_keyboard': True}
-
+		print("children",children)
+		print("chatbot_flow",chatbot_flow)
+		default_children=[]
+		if chatbot_flow.get('name') !=parent_flow.get("name"):
+			default_children=[{"name":parent_flow.get("name"),"button_text":"Main Menu"}]
+			children=children+default_children
 		if children:
-			self.reply_markup["inline_keyboard"] = [
-				[{"text": child.get('button_text'), "callback_data": child.get('name')}]
-				for child in children
+			self.reply_markup["inline_keyboard"]= [
+				[{"text": child.get('button_text'), "callback_data": child.get('name')} for child in children if child.get('button_text') ]
+
 			]
 
 		# Check if party_type is in associated parties
 		if party_type in associated_parties:
 			chatbot_template = frappe.get_doc('Chatbot Message Template', template)
-			kwargs = {party_type.lower(): party_name}
+			kwargs = {party_type.lower(): party_name,"data":self.message_received}
 			self.reply_text = chatbot_template.get_rendered_template(**kwargs)
-			self.send_message(self.reply_text)
+			print("reply_text",self.reply_text)
+			self.send_message()
 			frappe.cache.set_value(self.chat_id,chatbot_flow.get('name'))
 	def set_chat_id(self,party_type,party_name):
 		chat_id =frappe.db.get_value(party_type,party_name,"telegram_user_id")
