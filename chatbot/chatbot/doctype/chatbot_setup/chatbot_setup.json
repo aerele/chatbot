@@ -6,13 +6,16 @@
  "engine": "InnoDB",
  "field_order": [
   "telegram_tab",
+  "enable_telegram",
   "telegram_title",
   "telegram_username",
   "telegram_api_token",
   "telegram_webhook_url",
   "whatsapp_tab",
+  "enable_whatsapp",
   "whatsapp_title",
   "slack_tab",
+  "enable_slack",
   "slack_title"
  ],
  "fields": [
@@ -44,7 +47,8 @@
   {
    "fieldname": "telegram_api_token",
    "fieldtype": "Password",
-   "label": "API Token"
+   "label": "API Token",
+   "mandatory_depends_on": "eval:doc.enable_telegram"
   },
   {
    "fieldname": "telegram_webhook_url",
@@ -60,12 +64,30 @@
    "fieldname": "slack_title",
    "fieldtype": "Data",
    "label": "Title"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_telegram",
+   "fieldtype": "Check",
+   "label": "Enable"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_whatsapp",
+   "fieldtype": "Check",
+   "label": "Enable"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_slack",
+   "fieldtype": "Check",
+   "label": "Enable"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-09-21 14:49:41.679407",
+ "modified": "2024-09-26 11:46:39.605839",
  "modified_by": "Administrator",
  "module": "Chatbot",
  "name": "Chatbot Setup",

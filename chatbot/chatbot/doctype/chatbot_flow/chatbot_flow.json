@@ -1,24 +1,26 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:message",
- "creation": "2024-09-21 14:28:26.728731",
+ "autoname": "field:name1",
+ "creation": "2024-09-22 11:22:36.891954",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "section_break_5w2s",
+  "section_break_nlcp",
+  "name1",
+  "type",
+  "button_text",
+  "associated_party_types",
+  "template",
   "lft",
   "rgt",
-  "old_parent",
-  "message",
   "is_group",
-  "parent_bot_flow",
-  "button_text",
-  "template"
+  "old_parent",
+  "parent_chatbot_flow"
  ],
  "fields": [
   {
-   "fieldname": "section_break_5w2s",
+   "fieldname": "section_break_nlcp",
    "fieldtype": "Section Break"
   },
   {
@@ -46,45 +48,61 @@
   {
    "fieldname": "old_parent",
    "fieldtype": "Link",
-   "hidden": 1,
    "label": "Old Parent",
    "options": "Chatbot Flow"
   },
   {
-   "fieldname": "parent_bot_flow",
+   "fieldname": "parent_chatbot_flow",
    "fieldtype": "Link",
    "ignore_user_permissions": 1,
-   "label": "Parent",
+   "label": "Parent Chatbot Flow",
    "options": "Chatbot Flow"
   },
   {
-   "fieldname": "message",
+   "fieldname": "name1",
    "fieldtype": "Data",
-   "label": "Message",
+   "in_list_view": 1,
+   "label": "Name",
+   "reqd": 1,
    "unique": 1
   },
   {
+   "depends_on": "eval:doc.type==\"Button\"",
    "fieldname": "button_text",
    "fieldtype": "Data",
    "label": "Button Text",
+   "mandatory_depends_on": "eval:doc.type==\"Button\"",
    "unique": 1
+  },
+  {
+   "fieldname": "associated_party_types",
+   "fieldtype": "Table MultiSelect",
+   "label": "Associated Party Types",
+   "options": "Chatbot Associated Party Types"
   },
   {
    "fieldname": "template",
    "fieldtype": "Link",
    "label": "Template",
    "options": "Chatbot Message Template"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "\nButton\nText\nGet Value\nImage\nVideo\nDocument\nLocation",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2024-09-21 15:12:23.094352",
+ "modified": "2024-09-25 12:55:43.551793",
  "modified_by": "Administrator",
  "module": "Chatbot",
  "name": "Chatbot Flow",
  "naming_rule": "By fieldname",
- "nsm_parent_field": "parent_bot_flow",
+ "nsm_parent_field": "parent_chatbot_flow",
  "owner": "Administrator",
  "permissions": [
   {
