@@ -22,17 +22,18 @@ def create_customer_custom_field(party_name):
 					fieldtype="Tab Break",
 				),
 				dict(
-					fieldname="custom_telegram_username",
+					fieldname="telegram_username",
 					label="Telegram Username",
 					fieldtype="Data",
 					insert_after="chatbot_details",
 				),
 				dict(
 					fieldname="telegram_user_id",
+					label="Telegram User ID",
 					read_only=1,
 					label="",
 					fieldtype="Data",
-					insert_after="custom_telegram_username",
+					insert_after="telegram_username",
 				),
 			]
 		})
