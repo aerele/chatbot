@@ -243,4 +243,3 @@ after_migrate = "chatbot.customization.after_migrate.after_migrate"
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
-

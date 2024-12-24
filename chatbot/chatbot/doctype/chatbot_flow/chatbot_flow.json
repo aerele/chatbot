@@ -93,14 +93,14 @@
    "fieldname": "type",
    "fieldtype": "Select",
    "label": "Type",
-   "options": "\nButton\nText\nGet Value\nImage\nVideo\nDocument\nLocation",
+   "options": "\nButton\nText",
    "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2024-09-26 13:37:39.673202",
+ "modified": "2024-09-27 16:17:25.856464",
  "modified_by": "Administrator",
  "module": "Chatbot",
  "name": "Chatbot Flow",

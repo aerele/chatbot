@@ -53,7 +53,7 @@ class ChatbotSetup(Document):
 			url = f"https://api.telegram.org/bot{api_token}/setWebhook?url={webhook_url}&secret_token={s_token}&drop_pending_updates=True"
 
 			try:
-				
+
 				response = requests.get(url)
 				response.raise_for_status()  # Raises an HTTPError for 4xx/5xx status codes
 
@@ -63,7 +63,7 @@ class ChatbotSetup(Document):
 		api_token = self.get_password("telegram_api_token")
 		url=f"https://api.telegram.org/bot{api_token}/deleteWebhook?drop_pending_updates=1"
 		try:
-				
+
 				response = requests.get(url)
 				response.raise_for_status()  # Raises an HTTPError for 4xx/5xx status codes
 
