@@ -14,7 +14,6 @@ def create_customer_custom_field(party_name):
 	enable_telegram,enable_whatsapp,enable_slack=frappe.db.get_value("Chatbot Setup","Chatbot Setup",["enable_telegram","enable_whatsapp","enable_slack"])
 	insert_afrter_fieldname= frappe.get_meta(party_name)
 	insert_afrter_fieldname=insert_afrter_fieldname.fields[-1].get("fieldname")
-	print(insert_afrter_fieldname)
 	custom_fields = {}
 	if enable_telegram:
 		custom_fields = {
@@ -46,5 +45,4 @@ def create_customer_custom_field(party_name):
 				),
 			]
 		}
-		print(custom_fields)
 	create_custom_fields(custom_fields, update=True)
