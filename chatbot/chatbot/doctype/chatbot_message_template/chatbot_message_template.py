@@ -18,7 +18,6 @@ class ChatbotMessageTemplate(Document):
 		api_method = frappe.db.get_value('Server Script',
 						{'name':self.server_script, 'script_type':'API'},
 						'api_method')
-
 		if api_method:
 			response = run_script(self.server_script, **kwargs).get('response')
 

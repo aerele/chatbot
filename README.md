@@ -2,7 +2,7 @@
 
 ## Introduction
 
-With the **Chatbot Builder**, organizations can easily automate responses to time-consuming and frequently asked questions. The process is simple: 
+With the **Chatbot Builder**, organizations can easily automate responses to time-consuming and frequently asked questions. The process is simple:
 
 1. **Identify Common Questions**: List the repetitive questions that your team handles.
 2. **Create Reply Templates**: Design templates with variables to customize responses.
@@ -75,3 +75,4 @@ You can visualize the chatbot conversation as a tree structure. Each branch repr
 
 You are now ready to design your **Chatbot Flow** and start automating your interactions with users.
 
+mit

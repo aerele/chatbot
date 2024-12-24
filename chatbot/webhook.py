@@ -8,7 +8,8 @@ def telegram_webhook():
     """Webhook endpoint for Telegram."""
     try:
         update = frappe.request.get_json()
-        api = TelegramAPI(update)
+        headers=frappe.request.headers
+        api = TelegramAPI(update,headers)
 
         try:
             api.process_update()

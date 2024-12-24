@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:party_name",
  "creation": "2024-09-21 23:57:22.931228",
@@ -19,7 +20,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-09-22 00:01:09.139990",
+ "modified": "2024-09-24 13:27:10.904021",
  "modified_by": "Administrator",
  "module": "Chatbot",
  "name": "Chatbot Party Type",
