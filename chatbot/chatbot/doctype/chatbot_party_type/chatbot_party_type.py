@@ -31,7 +31,6 @@ def create_customer_custom_field(party_name):
 					fieldname="telegram_user_id",
 					label="Telegram User ID",
 					read_only=1,
-					label="",
 					fieldtype="Data",
 					insert_after="telegram_username",
 				),
