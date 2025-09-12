@@ -32,6 +32,7 @@ def create_customer_custom_field(party_name):
 					insert_afrter="chatbot_details"
 				),
 				dict(
+
 					fieldname="telegram_username",
 					label="Telegram Username",
 					fieldtype="Data",
@@ -39,12 +40,13 @@ def create_customer_custom_field(party_name):
 				),
 				dict(
 					fieldname="telegram_user_id",
+					label="Telegram User ID",
 					read_only=1,
-					label="",
 					fieldtype="Data",
 					insert_after="telegram_username",
 				),
 			]
+
 		}
-		print(custom_fields)
+		})
 	create_custom_fields(custom_fields, update=True)
